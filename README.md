@@ -22,3 +22,20 @@ docker run -d \
  aerokube/selenoid-ui:1.10.4 \
  --selenoid-uri "http://selenoid:4444"
 ```
+
+python
+```python
+CAPS = {
+        #'browser': 'android',
+        'platformName': 'android',
+        'appium:platformVersion': '10',
+        'appium:automationName': 'UiAutomator2',
+        #'appium:fullReset': True,
+        #'appium:app': '/home/androidusr/TheApp.apk'
+        'appium:deviceName': 'android',
+        'enableVNC': True,
+        'enableVideo': True,
+        'deviceReadyTimeout': 120,
+        'appium:app': 'https://github.com/appium-pro/TheApp/releases/download/v1.11.2/TheApp.apk'
+        }
+```
