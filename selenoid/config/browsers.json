@@ -1,0 +1,33 @@
+{
+
+  "android": {
+
+    "default": "10.0",
+
+    "sessionTimeout": "30m",
+
+    "versions": {
+
+      "10.0": {
+
+        "image": "android-appium:10",
+
+        "port": "4444",
+
+        "path": "/",
+
+         "env": [
+
+          "VERBOSE=true",
+
+          "APPIUM_ARGS=--log-level debug"
+
+        ]
+
+      }
+
+    }
+
+  }
+
+}
