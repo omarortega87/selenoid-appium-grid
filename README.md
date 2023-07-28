@@ -39,3 +39,33 @@ CAPS = {
         'appium:app': 'https://github.com/appium-pro/TheApp/releases/download/v1.11.2/TheApp.apk'
         }
 ```
+
+```json
+{
+
+  "android": {
+
+    "default": "10.0",
+
+    "versions": {
+
+      "10.0": {
+
+        ...
+
+        "volumes": [
+
+          "/home/username/app.apk:/builds/app.apk:ro"
+
+        ]
+
+        ...
+
+      }
+
+    }
+
+  }
+
+}
+```
