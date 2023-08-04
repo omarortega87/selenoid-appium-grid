@@ -3,6 +3,10 @@
 Selenoid running command
 
 ```bash
+docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/config:/etc/selenoid:ro -e OVERRIDE_VIDEO_OUTPUT_DIR=/home/omarortega/selenoid/video/ -v $(pwd)/logs/:/opt/selenoid/logs/ -v $(pwd)/video/:/opt/selenoid/video/ aerokube/selenoid:latest-release -log-output-dir $(pwd)/logs -service-startup-timeout 10m -session-attempt-timeout 10m
+```
+
+```bash
 docker run -d --name selenoid \
 -p 4444:4444 \
 -v /var/run/docker.sock:/var/run/docker.sock \
