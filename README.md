@@ -73,3 +73,90 @@ CAPS = {
 
 }
 ```
+
+
+```java
+package tests;
+
+import io.appium.java_client.AppiumBy;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import io.appium.java_client.android.AndroidDriver;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class AppiumRaw {
+
+    RemoteWebDriver driver;
+
+    @BeforeMethod
+    public void setup() {
+
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+
+        capabilities.setCapability("appium:platformVersion", "10");
+        capabilities.setCapability("appium:deviceName", "android");
+        capabilities.setCapability("appium:automationName", "UiAutomator2");
+        capabilities.setCapability("appium:app", "https://github.com/appium-pro/TheApp/releases/download/v1.11.0/TheApp.apk");
+        capabilities.setCapability("selenoid:options", new HashMap<String, Object>() {{
+            /* How to add test badge */
+            put("name", "Test badge...");
+
+            /* How to set session timeout */
+            put("sessionTimeout", "15m");
+
+            /* How to set timezone */
+            put("env", new ArrayList<String>() {{
+                add("TZ=UTC");
+            }});
+
+            /* How to add "trash" button */
+            put("labels", new HashMap<String, Object>() {{
+                put("manual", "true");
+            }});
+
+            /* How to enable video recording */
+            put("enableVNC", true);
+            put("enableVideo", true);
+            put("videoName", "my-cool-video.mp4");
+        }});
+
+        // Open the app.
+        try {
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @AfterMethod
+    public void teardown() {
+        driver.quit();
+    }
+
+    @Test(alwaysRun = true)
+    public void testVanillaBasicLoginSuccess() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.accessibilityId("Login Screen"))).click();
+    }
+
+}
+
+```
