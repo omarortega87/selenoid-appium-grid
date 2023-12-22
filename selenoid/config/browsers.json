@@ -20,10 +20,10 @@
 
           "VERBOSE=true",
 
-          "APPIUM_ARGS=--log-level debug"
+          "APPIUM_ARGS=--log-level verbose"
 
-        ]
-
+        ],
+           
       }
 
     }
