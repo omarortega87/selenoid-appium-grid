@@ -62,10 +62,10 @@ fi
 ANDROID_AVD_HOME=/root/.android/avd DISPLAY="$DISPLAY" /opt/android-sdk-linux/emulator/emulator ${EMULATOR_ARGS} -avd @AVD_NAME@ -sdcard /sdcard.img -skin "$SKIN" -skindir /opt/android-sdk-linux/platforms/@PLATFORM@/skins/ &
 EMULATOR_PID=$!
 
-if [ "$ENABLE_VNC" == "true" ]; then
+#if [ "$ENABLE_VNC" == "true" ]; then
     x11vnc -display "$DISPLAY" -passwd selenoid -shared -forever -loop500 -rfbport 5900 -rfbportv6 5900 -logfile /tmp/x11vnc.log &
     X11VNC_PID=$!
-fi
+#fi
 
 while [ "$(adb shell getprop sys.boot_completed | tr -d '\r')" != "1" ] && [ -z "$STOP" ] ; do sleep 1; done
 if [ -n "$STOP" ]; then exit 0; fi
@@ -82,8 +82,9 @@ if [ -x "/usr/bin/chromedriver" ]; then
     DEFAULT_CAPABILITIES=$DEFAULT_CAPABILITIES',"chromedriverExecutable": "/usr/bin/chromedriver"'
 fi
 
+adb shell settings put global http_proxy cdcproxy.kroger.com:3128
 /opt/node_modules/.bin/appium driver install uiautomator2
-/opt/node_modules/.bin/appium -a 0.0.0.0 -p "$PORT" --default-capabilities "{$DEFAULT_CAPABILITIES}" &
+/opt/node_modules/.bin/appium -a 0.0.0.0 -p "$PORT" --allow-insecure=adb_shell  --default-capabilities "{$DEFAULT_CAPABILITIES}" &
 APPIUM_PID=$!
 
 wait
