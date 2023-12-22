@@ -25,7 +25,6 @@ RUN \
 	    openjdk-8-jdk-headless \
 	    unzip \
 	    xvfb \
-            upx \
 	    libpulse0 \
 		libxcomposite1 \
 		libxcursor1 \
@@ -72,8 +71,8 @@ RUN \
 	yes | sdkmanager --licenses
 
 RUN \
-	sdkmanager "emulator" "tools" "platform-tools" "$BUILD_TOOLS" "platforms;$PLATFORM" "$EMULATOR_IMAGE" && \
-	mksdcard "$SDCARD_SIZE"M sdcard.img && \
+        echo y | sdkmanager "emulator" "tools" "platform-tools" "$BUILD_TOOLS" "platforms;$PLATFORM" "$EMULATOR_IMAGE"  && \
+mksdcard "$SDCARD_SIZE"M sdcard.img && \
 	echo "no" | ( \
 	    ([ -n "$ANDROID_DEVICE" ] && avdmanager create avd -n "$AVD_NAME" -k "$EMULATOR_IMAGE" --abi "$ANDROID_ABI" --device "$ANDROID_DEVICE" --sdcard /sdcard.img ) || \
 	    avdmanager create avd -n "$AVD_NAME" -k "$EMULATOR_IMAGE" --abi "$ANDROID_ABI" --sdcard /sdcard.img \
@@ -91,4 +90,4 @@ COPY emulator-snapshot.sh tmp/chromedriver* *.apk /usr/bin/
 
 # Entrypoint
 COPY tmp/entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh","/entrypoint.sh"]
