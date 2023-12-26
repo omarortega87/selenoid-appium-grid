@@ -57,7 +57,7 @@ done
 if [ -n "$STOP" ]; then exit 0; fi
 
 if [ "$ENABLE_VNC" != "true" ] && [ "$ENABLE_VIDEO" != "true" ]; then
- EMULATOR_ARGS="-verbose -no-boot-anim -wipe-data -no-snapshot -no-window -gpu off"
+ EMULATOR_ARGS="-verbose -wipe-data -no-snapshot-save -no-window --accel off -gpu off -no-boot-anim -engine qemu2"
 fi
 ANDROID_AVD_HOME=/root/.android/avd DISPLAY="$DISPLAY" /opt/android-sdk-linux/emulator/emulator ${EMULATOR_ARGS} -avd @AVD_NAME@ -sdcard /sdcard.img -skin "$SKIN" -skindir /opt/android-sdk-linux/platforms/@PLATFORM@/skins/ &
 EMULATOR_PID=$!
