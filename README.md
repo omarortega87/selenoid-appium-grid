@@ -5,7 +5,7 @@ Selenoid running command
 ```bash
 docker run -d --name selenoid -p 4444:4444 -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd)/config:/etc/selenoid:ro -e OVERRIDE_VIDEO_OUTPUT_DIR=/home/omarortega/selenoid/video/ -v $(pwd)/logs/:/opt/selenoid/logs/ -v $(pwd)/video/:/opt/selenoid/video/ aerokube/selenoid:latest-release -log-output-dir $(pwd)/logs -service-startup-timeout 10m -session-attempt-timeout 10m
 ```
-
+## Docker Selenoid Server
 ```bash
 docker run -d --name selenoid \
 -p 4444:4444 \
@@ -17,7 +17,7 @@ docker run -d --name selenoid \
 aerokube/selenoid:latest-release -log-output-dir /opt/selenoid/logs -service-startup-timeout 10m -session-attempt-timeout 10m
 ```
 
-Selenoid UI command
+## Selenoid UI command
 ```bash
 docker run -d \
  --name selenoid-ui \
@@ -25,6 +25,11 @@ docker run -d \
  --link selenoid:selenoid \
  aerokube/selenoid-ui:1.10.4 \
  --selenoid-uri "http://selenoid:4444"
+```
+
+## Docker Selenoid Video image
+```bash
+docker pull selenoid/video-recorder:latest-release 
 ```
 
 python
