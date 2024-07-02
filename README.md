@@ -13,7 +13,7 @@ docker run -d --name selenoid \
 -v $(pwd)/selenoid/config:/etc/selenoid:ro \
 -e OVERRIDE_VIDEO_OUTPUT_DIR=/opt/selenoid/video/ \
 -v $(pwd)/selenoid/logs/:/opt/selenoid/logs/ \
--v /c/Users/ingor/code/selenoid/video/:/opt/selenoid/video/ \
+-v $(pwd)/selenoid/video/:/opt/selenoid/video/ \
 aerokube/selenoid:latest-release -log-output-dir /opt/selenoid/logs -service-startup-timeout 10m -session-attempt-timeout 10m
 ```
 
